@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CrowdFlower</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+
+  </head>
+  <body ng-app="CrowdFlower">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <a class="float-right reveal" data-toggle="collapse" href="#mainContent" aria-expanded="true" aria-controls="mainContent">
+            Ninja Unicorn <i class="glyphicon glyphicon-triangle-bottom"></i>
+          </a>
+        </div>
+        <div class="collapse in" id="mainContent" aria-expanded="true">
+          <div class="col-md-12">
+            <h1> Welcome to CrowdFlower, you amazing beast!</h1>
+            <p>Get familiar with us by creating your first CrowdFlower job.</p>
+            <p><strong>What would you like to do?</strong></p>
+          </div>
+
+          <div ng-controller="useCasesCtrl">
+            <div class="col-xs-12 col-sm-6 col-md-3" ng-repeat="useCase in useCases">
+              <div class="thumbnail">
+                <img ng-src="{{useCase.path}}">
+                <h5>{{useCase.title}}</h5>
+              </div>
+            </div>
+
+
+            <div class="col-md-12">
+              <a class="float-right reveal" data-toggle="collapse" href="#lastUseCases" aria-expanded="true" aria-controls="lastUseCases">
+                <strong>See more <i class="glyphicon glyphicon-triangle-bottom"></i></strong>
+              </a>
+            </div>
+
+            <div class="collapse" id="lastUseCases">
+              <div class="col-xs-12 col-sm-6 col-md-3" ng-repeat="useCase in lastUseCases">
+                <div class="thumbnail">
+                  <img ng-src="{{useCase.path}}">
+                  <h5>{{useCase.title}}</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="divider"></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <p><strong>Need helping getting started?</strong></p>
+          <ul>
+            <li>
+              <a href="#">Read hel docs</a>
+            </li>
+            <li>
+              <a href="#">View example case studies</a>
+            </li>
+            <li>
+              <a href="#">Watch training videos</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-9" ng-controller="dataNeedsCtrl">
+          <form ng-submit="sendForm()">
+            <p><strong>Don't see what you're looking for?</strong></p>
+            <p>Tell us what your data needs - we'll get back to you with a recommendation</p>
+            <div class="col-md-12 summary">
+              <p>
+                <textarea type="text" ng-model="summary" class="form-control" rows="6" ng-attr-placeholder="{{placeholder}}">
+                </textarea>
+              </p>
+              <p class="bg-danger" ng-if="error">
+                <strong>Error:</strong> You have introduced more than 140 characters
+              </p>
+              <p><strong>Attach a sample of your data (optional)</strong></p>
+              <button class="col-md-2 btn btn-primary gray btn-file">
+                Upload File
+                <input type="file" onchange="angular.element(this).scope().inputChanged(this)" accept="image/x-png, image/gif, image/jpeg">
+              </button>
+              <div class="col-md-3">
+                <div class="drag-area btn-file">
+                  or drop files here
+                  <input type="file" onchange="angular.element(this).scope().inputChanged(this)" accept="image/x-png, image/gif, image/jpeg">
+                </div>
+              </div>
+              <div class="col-md-2">
+                <img id="upload" ng-if="fileSrc" ng-src="{{fileSrc}}" ng-attr-alt="{{fileName}}" class="col-md-9"/>
+              </div>
+            </div>
+
+            <button type="submit" ng-click="sendForm()" class="col-md-3 send btn btn-info float-right" ng-disabled="send">Send</button>
+
+            <p class="bg-info col-md-8" ng-if="success">
+              We have received your summary!
+            </p>
+            <p class="bg-danger col-md-8" ng-if="!success && error">
+              There has been an error, please try again.
+            </p>
+
+          </form>
+        </div>
+      </div>
+
+      <div class="row footer">
+        <div class="col-md-12">
+          <a href="#">Help</a>
+          <a href="#">Email us</a>
+          <a href="#">Upgrade your plan</a>
+          <a href="#"><i class="glyphicon glyphicon-option-horizontal"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"> </script>
+    <script src="https://code.angularjs.org/1.4.0-rc.2/angular.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"> </script>
+    <script src="src/app.js"> </script>
+    <script src="src/controllers/dataNeedsCtrl.js"></script>
+    <script src="src/controllers/useCasesCtrl.js"></script>
+  </body>
+</html>
